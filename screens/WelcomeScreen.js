@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Animated, Easing, Alert, Platform } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Animated, Easing, Alert, Platform, Image } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import CustomHeaderButton from '../components/CustomHeaderButton';
@@ -65,15 +65,10 @@ const WelcomeScreen = (props) => {
     <View style={styleWelcomes.container}>
       <Animated.View style={{ opacity: logoOpacity, marginBottom: 20, flexDirection: 'row' }}>
         <View style={styleWelcomes.iconContainer}>
-          <MaterialIcons name="headset" size={120} color="#333" style={styleWelcomes.icon} />
-          <Text style={styleWelcomes.iconText}>Audio</Text>
-        </View>
-        <View style={styleWelcomes.iconContainer}>
-          <Ionicons name="md-image" size={120} color="#333" style={styleWelcomes.icon} />
-          <Text style={styleWelcomes.iconText}>Image</Text>
-        </View>
+          <Image source={require('../assets/media.gif')} name="headset" style={styleWelcomes.icon} />          
+        </View>        
       </Animated.View>
-      <Text style={styles.label}>Sign In And Share</Text>
+      <Text style={styles.label}>LOGIN</Text>
       <TextInput
         style={styleWelcomes.textInput}
         onChangeText={(value) => setLoginEmail(value)}
@@ -112,6 +107,7 @@ const styleWelcomes = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#E2E1D3',
   },
   iconContainer: {
     alignItems: 'center',
@@ -119,6 +115,8 @@ const styleWelcomes = StyleSheet.create({
   },
   icon: {
     marginBottom: 10,
+    width:350,
+    height:250,    
   },
   iconText: {
     fontSize: 16,
