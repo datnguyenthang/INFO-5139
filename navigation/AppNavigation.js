@@ -30,7 +30,7 @@ function AppNavigator() {
                     name="ScreenOne"
                     component={WelcomeScreen}
                     options={{
-                        title: 'Share it!',                        
+                        title: 'Media Follow',                        
                     }}
                 />
                 <Stack.Screen
