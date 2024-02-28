@@ -4,8 +4,7 @@ import { firestore, auth } from '../firebaseConfig';
 import { onSnapshot, collection, deleteDoc, addDoc, doc, where, query } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
 import * as MailComposer from 'expo-mail-composer';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
-//import { styles } from '../styles/styles';
+
 
 const PictureScreen = () => {
   const [images, setImages] = useState([]);
