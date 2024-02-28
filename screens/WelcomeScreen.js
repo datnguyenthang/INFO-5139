@@ -77,6 +77,7 @@ const WelcomeScreen = (props) => {
           autoCompleteType="email"
           keyboardType="email-address"
           placeholder="Email"
+          placeholderTextColor="#666"
       />
       <TextInput
           style={[styleWelcomes.textInput, styleWelcomes.input]}
@@ -87,6 +88,7 @@ const WelcomeScreen = (props) => {
           keyboardType="default"
           placeholder="Password"
           secureTextEntry={true}
+          placeholderTextColor="#666"
       />
       <View style={styleWelcomes.buttonContainer}>
         <TouchableOpacity style={styleWelcomes.loginButton} onPress={loginWithFirebase}>
@@ -121,6 +123,7 @@ const styleWelcomes = StyleSheet.create({
     paddingVertical: 8,
     marginBottom: 10,
     width: 350,
+    backgroundColor: 'white',
   },
   icon: {
     marginBottom: 10,
@@ -160,6 +163,7 @@ const styleWelcomes = StyleSheet.create({
     fontWeight: 'bold',
   },
   textInput: {
+      color: '#fff',
       fontSize: 20,
       height: Platform.OS === 'android' ? 40 : 40, // Adjust the height for Android
       textAlignVertical: 'center', // Center the text vertically on Android
