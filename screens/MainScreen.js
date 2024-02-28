@@ -5,8 +5,7 @@ import { sendEmailVerification } from 'firebase/auth';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import { firestore, auth } from '../firebaseConfig';
-import CustomHeaderButton from '../components/CustomHeaderButton';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+
 
 const MainScreen = (props) => {
   const [emailVerified, setEmailVerified] = useState(false);
@@ -30,10 +29,10 @@ const MainScreen = (props) => {
   const sendVerificationEmail = () => {
     sendEmailVerification(auth.currentUser)
       .then(() => {
-        alert('Verification email sent successfully!');
+        alert('Verification Email Sent Successfully!');
       })
       .catch((error) => {
-        alert('Error sending verification email', error.message);
+        alert('Error Sending Verification Email', error.message);
       });
   };
 
