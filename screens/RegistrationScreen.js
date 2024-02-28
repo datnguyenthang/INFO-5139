@@ -47,7 +47,7 @@ const RegistrationScreen = (props) => {
         Email: email,
       });
 
-      Alert.alert('User successfully saved!');
+      Alert.alert('User registration successfully!');
       props.navigation.navigate('ScreenOne');
     } catch (error) {
       Alert.alert('Error saving user');
@@ -60,26 +60,29 @@ const RegistrationScreen = (props) => {
       <FontAwesome name="user-circle" size={100} color="#3498db" style={styles.icon} />
       <Text style={styles.label}>Complete the form</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.textInput]}
         onChangeText={(value) => setFirstName(value)}
         placeholder="First Name"
+        placeholderTextColor="#666"
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.textInput]}
         onChangeText={(value) => setLastName(value)}
         placeholder="Last Name"
+        placeholderTextColor="#666"
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.textInput]}
         onChangeText={(value) => setEmail(value)}
         autoCapitalize="none"
         autoCorrect={false}
         autoCompleteType="email"
         keyboardType="email-address"
         placeholder="Email"
+        placeholderTextColor="#666"
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.textInput]}
         onChangeText={(value) => setPassword(value)}
         autoCapitalize="none"
         autoCorrect={false}
@@ -87,6 +90,7 @@ const RegistrationScreen = (props) => {
         keyboardType="default"
         placeholder="Password"
         secureTextEntry={true}
+        placeholderTextColor="#666"
       />
       <TouchableOpacity style={styles.buttonContainer} onPress={registerWithFirebase}>
         <Text style={styles.buttonText}>Register</Text>
@@ -100,23 +104,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    backgroundColor:'#E2E1D3',
   },
   icon: {
-    marginBottom: 20,
+    alignItems: 'center',
+    marginBottom: 10,
   },
   label: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 16,
   },
   input: {
-    height: 40,
-    width: '100%',
-    borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingLeft: 8,
+    borderColor: '#000',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    marginBottom: 10,
+    width: 350,
+    backgroundColor: 'white',
+  },
+  textInput: {
+    color: '#fff', // White text color
   },
   buttonContainer: {
     backgroundColor: '#3498db',
