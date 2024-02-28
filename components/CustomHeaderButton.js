@@ -5,7 +5,7 @@ import { HeaderButton } from 'react-navigation-header-buttons';
 import { Ionicons } from '@expo/vector-icons';
 
 const CustomHeaderButton = props => {
-    return <HeaderButton {...props} IconComponent={Ionicons} color={Platform.OS === 'android' ? 'white' : 'blue'} />
+    return <HeaderButton {...props} IconComponent={Ionicons} iconSize={35} color={Platform.OS === 'android' ? 'white' : 'blue'} />
 }
 
 export default CustomHeaderButton;
