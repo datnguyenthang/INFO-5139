@@ -40,7 +40,7 @@ const WelcomeScreen = (props) => {
         const errorMessage = error.message;
 
         if (errorCode === 'auth/wrong-password') {
-          Alert.alert('Wrong password.');
+          Alert.alert('Wrong password, try again!');
         } else {
           Alert.alert(errorMessage);
         }
@@ -70,23 +70,23 @@ const WelcomeScreen = (props) => {
       </Animated.View>
       <Text style={styles.label}>LOGIN</Text>
       <TextInput
-        style={styleWelcomes.textInput}
-        onChangeText={(value) => setLoginEmail(value)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        autoCompleteType="email"
-        keyboardType="email-address"
-        placeholder="Email"
+          style={[styleWelcomes.textInput, styleWelcomes.input]}
+          onChangeText={(value) => setLoginEmail(value)}
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoCompleteType="email"
+          keyboardType="email-address"
+          placeholder="Email"
       />
       <TextInput
-        style={styleWelcomes.textInput}
-        onChangeText={(value) => setLoginPassword(value)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        autoCompleteType="password"
-        keyboardType="default"
-        placeholder="Password"
-        secureTextEntry={true}
+          style={[styleWelcomes.textInput, styleWelcomes.input]}
+          onChangeText={(value) => setLoginPassword(value)}
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoCompleteType="password"
+          keyboardType="default"
+          placeholder="Password"
+          secureTextEntry={true}
       />
       <View style={styleWelcomes.buttonContainer}>
         <TouchableOpacity style={styleWelcomes.loginButton} onPress={loginWithFirebase}>
@@ -112,6 +112,15 @@ const styleWelcomes = StyleSheet.create({
   iconContainer: {
     alignItems: 'center',
     marginBottom: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#000',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    marginBottom: 10,
+    width: 350,
   },
   icon: {
     marginBottom: 10,

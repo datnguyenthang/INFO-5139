@@ -30,7 +30,11 @@ function AppNavigator() {
                     name="ScreenOne"
                     component={WelcomeScreen}
                     options={{
-                        title: 'Media Follow',                        
+                        title: 'Media Follow',
+                        headerTitleStyle: {
+                            fontSize: 24,
+                        },
+                        statusBarColor: '#fff'
                     }}
                 />
                 <Stack.Screen
