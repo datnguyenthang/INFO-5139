@@ -27,7 +27,7 @@ const WelcomeScreen = (props) => {
 
   const loginWithFirebase = () => {
     if (loginEmail.length < 4 || loginPassword.length < 4) {
-      Alert.alert('Please enter valid credentials.');
+      Alert.alert('Please enter valid credentials!!!.');
       return;
     }
 
@@ -40,7 +40,7 @@ const WelcomeScreen = (props) => {
         const errorMessage = error.message;
 
         if (errorCode === 'auth/wrong-password') {
-          Alert.alert('Wrong password, try again!');
+          Alert.alert('Wrong password! Please, try again!');
         } else {
           Alert.alert(errorMessage);
         }
