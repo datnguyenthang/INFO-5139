@@ -6,15 +6,18 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import CustomHeaderButton from '../components/CustomHeaderButton';
 import { styles } from '../styles/styles';
+import { useNavigation } from '@react-navigation/native';
 
 const WelcomeScreen = (props) => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [logoOpacity] = useState(new Animated.Value(0));
+  
+	const navigation = useNavigation();
 
-  useEffect(() => {
-    animateLogo();
-  }, []);
+	useEffect(() => {
+		animateLogo();
+	});
 
   const animateLogo = () => {
     Animated.timing(logoOpacity, {
@@ -128,7 +131,7 @@ const styleWelcomes = StyleSheet.create({
   icon: {
     marginBottom: 10,
     width:240,
-    height:140,    
+    height:150,    
   },
   iconText: {
     fontSize: 16,

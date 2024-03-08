@@ -11,31 +11,31 @@ const MainScreen = (props) => {
   const [welcomeMessage, setWelcomeMessage] = useState('');
 
   useEffect(() => {
-    const retrieveDataWithFirebase = async () => {
-      const userID = auth.currentUser.uid;
-      onSnapshot(doc(firestore, '/users/' + userID), (snapshot) => {
-        if (snapshot.exists()) {
-          const firstName = snapshot.data().FirstName;
-          setWelcomeMessage(`Welcome, ${firstName}`);
-          setEmailVerified(auth.currentUser.emailVerified);
-        }
-      });
-    };
+	const retrieveDataWithFirebase = async () => {
+	  const userID = auth.currentUser.uid;
+	  onSnapshot(doc(firestore, '/users/' + userID), (snapshot) => {
+		if (snapshot.exists()) {
+		  const firstName = snapshot.data().FirstName;
+		  setWelcomeMessage(`Welcome, ${firstName}`);
+		  setEmailVerified(auth.currentUser.emailVerified);
+		}
+	  });
+	};
 
-    retrieveDataWithFirebase();
+	retrieveDataWithFirebase();
 
-    // Interval to update verified email status every 3000 milliseconds
-    const interval = setInterval(() => {
-      const userID = auth.currentUser.uid;
-      onSnapshot(doc(firestore, '/users/' + userID), (snapshot) => {
-        if (snapshot.exists()) {
-          setEmailVerified(auth.currentUser.emailVerified);
-        }
-      });
-    }, 3000);
+	// Interval to update verified email status every 3000 milliseconds
+	const interval = setInterval(() => {
+	  const userID = auth.currentUser.uid;
+	  onSnapshot(doc(firestore, '/users/' + userID), (snapshot) => {
+		if (snapshot.exists()) {
+		  setEmailVerified(auth.currentUser.emailVerified);
+		}
+	  });
+	}, 3000);
 
-    // Clean up function to clear interval
-    return () => clearInterval(interval);
+	// Clean up function to clear interval
+	  return () => clearInterval(interval);
   }, []);
 
   const sendVerificationEmail = () => {
