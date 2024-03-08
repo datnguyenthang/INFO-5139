@@ -42,7 +42,7 @@ const WelcomeScreen = (props) => {
         if (errorCode === 'auth/wrong-password') {
           Alert.alert('Wrong password! Please, try again!');
         } else {
-          Alert.alert(errorMessage);
+          Alert.alert('Invalid login!');
         }
       });
   };

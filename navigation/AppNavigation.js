@@ -17,7 +17,7 @@ function AppNavigator() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Home"
+                initialRouteName="ScreenOne"
                 headerMode="screen"
                 screenOptions={{
                     headerTintColor: Platform.OS === 'android' ? 'white' : 'blue',
@@ -41,7 +41,8 @@ function AppNavigator() {
                     name="ScreenTwo"
                     component={MainScreen}
                     options={{
-                        title: 'User Profile',
+                        title: 'App',
+						headerLeft: null
                     }}
                 />
                 <Stack.Screen

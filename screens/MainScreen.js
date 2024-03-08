@@ -6,7 +6,6 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import { firestore, auth } from '../firebaseConfig';
 
-
 const MainScreen = (props) => {
   const [emailVerified, setEmailVerified] = useState(false);
   const [welcomeMessage, setWelcomeMessage] = useState('');
@@ -24,6 +23,19 @@ const MainScreen = (props) => {
     };
 
     retrieveDataWithFirebase();
+
+    // Interval to update verified email status every 3000 milliseconds
+    const interval = setInterval(() => {
+      const userID = auth.currentUser.uid;
+      onSnapshot(doc(firestore, '/users/' + userID), (snapshot) => {
+        if (snapshot.exists()) {
+          setEmailVerified(auth.currentUser.emailVerified);
+        }
+      });
+    }, 3000);
+
+    // Clean up function to clear interval
+    return () => clearInterval(interval);
   }, []);
 
   const sendVerificationEmail = () => {
@@ -67,34 +79,54 @@ const MainScreen = (props) => {
       );
     }
   };
+  
+  const renderElement = () => {
+    if (!emailVerified) {
+      return (
+        <>
+          <Text style={styles.warningToVerify}>You must verify your email before using app!!</Text>
+          <TouchableOpacity
+            style={styles.verifyButton}
+            onPress={sendVerificationEmail}
+            animation="pulse"
+            iterationCount="infinite"
+          >
+            <Ionicons name="mail" size={20} color="#e74c3c" />
+            <Text style={styles.buttonTextEmail}>Send Verification Email</Text>
+          </TouchableOpacity>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Text style={styles.welcomeText}>{welcomeMessage}</Text>
+          <Animatable.View style={styles.blockContainer} animation="fadeInUp" delay={500}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('ScreenFour')}
+              style={[styles.buttonLarge, { backgroundColor: '#3498db' }]}
+            >
+              <Ionicons name="images" size={50} color="white" />
+              <Text style={styles.buttonText}>Image Repository</Text>
+            </TouchableOpacity>
+          </Animatable.View>
+
+          <Animatable.View style={styles.blockContainer} animation="fadeInUp" delay={800}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('ScreenFive')}
+              style={[styles.buttonLarge, { backgroundColor: '#e74c3c' }]}
+            >
+              <FontAwesome name="music" size={50} color="white" />
+              <Text style={styles.buttonText}>Audio Repository</Text>
+            </TouchableOpacity>
+          </Animatable.View>
+        </>
+      );
+    } 
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>{welcomeMessage}</Text>
-
-      <Animatable.View style={styles.blockContainer} animation="fadeInUp" delay={500}>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('ScreenFour')}
-          style={[styles.buttonLarge, { backgroundColor: '#3498db' }]}
-        >
-          <Ionicons name="images" size={50} color="white" />
-          <Text style={styles.buttonText}>Image Repository</Text>
-        </TouchableOpacity>
-      </Animatable.View>
-
-      <Animatable.View style={styles.blockContainer} animation="fadeInUp" delay={800}>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('ScreenFive')}
-          style={[styles.buttonLarge, { backgroundColor: '#e74c3c' }]}
-        >
-          <FontAwesome name="music" size={50} color="white" />
-          <Text style={styles.buttonText}>Audio Repository</Text>
-        </TouchableOpacity>
-      </Animatable.View>
-
-      <Animatable.View style={styles.verifyButtonContainer} animation="fadeInUp" delay={1200}>
-        {renderButton()}
-      </Animatable.View>
+      {renderElement()}
     </View>
   );
 };
@@ -159,6 +191,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     marginLeft: 10,
+  },
+  warningToVerify: {
+    color: 'red',
+    fontSize: 18,
+    marginBottom: 10,
   },
 });
 
