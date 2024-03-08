@@ -127,8 +127,8 @@ const styleWelcomes = StyleSheet.create({
   },
   icon: {
     marginBottom: 10,
-    width:350,
-    height:250,    
+    width:240,
+    height:140,    
   },
   iconText: {
     fontSize: 16,
@@ -163,7 +163,7 @@ const styleWelcomes = StyleSheet.create({
     fontWeight: 'bold',
   },
   textInput: {
-      color: '#fff',
+      color: '#000000',
       fontSize: 20,
       height: Platform.OS === 'android' ? 40 : 40, // Adjust the height for Android
       textAlignVertical: 'center', // Center the text vertically on Android

@@ -41,7 +41,7 @@ const MainScreen = (props) => {
   };
 
   const renderButton = () => {
-    if (emailVerified) {
+    if (!emailVerified) {
       return (
         <TouchableOpacity
           style={styles.verifyButton}

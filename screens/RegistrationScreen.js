@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   textInput: {
-    color: '#fff', // White text color
+    color: '#000000', // White text color
   },
   buttonContainer: {
     backgroundColor: '#3498db',
