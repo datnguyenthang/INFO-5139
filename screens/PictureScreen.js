@@ -47,7 +47,7 @@ const PictureScreen = () => {
       setImages((prevImages) => prevImages.filter((image) => image.id !== id));
     } catch (error) {
       console.error('Error deleting image', error);
-      Alert.alert('Error', 'Failed to delete image');
+      Alert.alert('Error', 'Sorry! Failed to delete the image!');
     }
   };
 
@@ -71,8 +71,8 @@ const PictureScreen = () => {
           //setImages((prevImages) => [...prevImages, { id: imageRef.id, imageUrl: result.assets[0].uri }]);
         }
       } catch (error) {
-        console.error('Error picking image', error);
-        Alert.alert('Error', 'Failed to pick image');
+        console.error('Error picking image!', error);
+        Alert.alert('Error', 'Failed to pick image!');
       }
     }
   };
@@ -97,7 +97,7 @@ const PictureScreen = () => {
         }
       } catch (error) {
         console.error('Error taking picture', error);
-        Alert.alert('Error', 'Failed to take picture');
+        Alert.alert('Error', 'Failed to take picture!');
       }
     }
   };
