@@ -10,6 +10,7 @@ const PictureScreen = () => {
   const [images, setImages] = useState([]);
   const currentUser = auth.currentUser;
 
+  //verify permission
   const verifyPermissions = async () => {
     const cameraResult = await ImagePicker.requestCameraPermissionsAsync();
     const libraryResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -38,6 +39,7 @@ const PictureScreen = () => {
     return () => unsubscribe();
   }, [currentUser]);
 
+   // handle delete image
   const handleDeleteImage = async (id) => {
     try {
       await deleteDoc(doc(firestore, 'images', id));
@@ -47,7 +49,8 @@ const PictureScreen = () => {
       Alert.alert('Error', 'Failed to delete image');
     }
   };
-
+	
+	// handle pickup image
   const handlePickImage = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -72,6 +75,7 @@ const PictureScreen = () => {
     }
   };
 
+	// handle take a picture
   const handleTakePicture = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -96,6 +100,7 @@ const PictureScreen = () => {
     }
   };
 
+	// handle send message with email
   const sendMessageWithMail = async (imageUrl) => {
     const isAvailable = await MailComposer.isAvailableAsync();
 
@@ -120,6 +125,7 @@ const PictureScreen = () => {
     }
   };
 
+	// handle image option to take action on image
   const handleImageOptions = (id, imageUrl) => {
     Alert.alert(
       'Confirmation',
@@ -148,7 +154,8 @@ const PictureScreen = () => {
       { cancelable: false }
     );
   };
-
+	
+	// render image
   const renderItem = ({ item }) => (
     <View style={stylePictures.pictureItem}>
         <TouchableOpacity onPress={() => handleImageOptions(item.id, item.imageUrl)}>
