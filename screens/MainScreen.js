@@ -106,7 +106,7 @@ const MainScreen = (props) => {
               style={[styles.buttonLarge, { backgroundColor: '#3498db' }]}
             >
               <Ionicons name="images" size={50} color="white" />
-              <Text style={styles.buttonText}>Image Repository</Text>
+              <Text style={styles.buttonText}>-Image Repository-</Text>
             </TouchableOpacity>
           </Animatable.View>
 
@@ -116,7 +116,7 @@ const MainScreen = (props) => {
               style={[styles.buttonLarge, { backgroundColor: '#e74c3c' }]}
             >
               <FontAwesome name="music" size={50} color="white" />
-              <Text style={styles.buttonText}>Audio Repository</Text>
+              <Text style={styles.buttonText}>-Audio Repository-</Text>
             </TouchableOpacity>
           </Animatable.View>
         </>
