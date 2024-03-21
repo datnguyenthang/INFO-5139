@@ -10,6 +10,7 @@ const PictureScreen = () => {
   const [images, setImages] = useState([]);
   const currentUser = auth.currentUser;
 
+
   // Request permission to access camera and albums
   const verifyPermissions = async () => {
     const cameraResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -39,6 +40,7 @@ const PictureScreen = () => {
     return () => unsubscribe();
   }, [currentUser]);
 
+   // handle delete image
   const handleDeleteImage = async (id) => {
     try {
       await deleteDoc(doc(firestore, 'images', id));
@@ -50,6 +52,7 @@ const PictureScreen = () => {
   };
 
   // Select picture from album
+
   const handlePickImage = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -124,7 +127,7 @@ const PictureScreen = () => {
     }
   };
 
-  // Share or delete the image
+	// handle image option to take action on image
   const handleImageOptions = (id, imageUrl) => {
     Alert.alert(
       'Confirmation',
@@ -155,6 +158,7 @@ const PictureScreen = () => {
   };
 
   // Render the pressable image
+
   const renderItem = ({ item }) => (
     <View style={stylePictures.pictureItem}>
         <TouchableOpacity onPress={() => handleImageOptions(item.id, item.imageUrl)}>
