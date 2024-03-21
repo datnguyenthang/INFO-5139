@@ -229,7 +229,7 @@ const AudioScreen = () => {
           text: 'Delete',
           onPress: async () => {
             handleDeleteAudio(id);
-            Alert.alert('Audio Delete', 'Audio Deleted successfully!');
+            Alert.alert('Audio Delete', 'Audio Deleted!');
           },
         },
         {
