@@ -196,7 +196,7 @@ const AudioScreen = () => {
     if (isAvailable) {
       var options = {
         subject: 'Check out this audio!',
-        body: `I wanted to share this audio with you.`,
+        body: `Hello! I wanted to share this audio with you.`,
         attachments: [audioUrl],
       };
 
@@ -206,11 +206,11 @@ const AudioScreen = () => {
           Alert.alert('Email Sent', 'The audio has been sent successfully.');
         })
         .catch((error) => {
-          console.error('Error sending email', error);
+          console.error('Error! Sending email', error);
           Alert.alert('Error', 'Failed to send email');
         });
     } else {
-      Alert.alert('Email is not available');
+      Alert.alert('Sorry! Email is not available');
     }
   };
 
