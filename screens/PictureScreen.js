@@ -10,6 +10,7 @@ const PictureScreen = () => {
   const [images, setImages] = useState([]);
   const currentUser = auth.currentUser;
 
+  // Request permission to access camera and albums
   const verifyPermissions = async () => {
     const cameraResult = await ImagePicker.requestCameraPermissionsAsync();
     const libraryResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -48,6 +49,7 @@ const PictureScreen = () => {
     }
   };
 
+  // Select picture from album
   const handlePickImage = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -72,6 +74,7 @@ const PictureScreen = () => {
     }
   };
 
+  // Get pictures from camera
   const handleTakePicture = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -96,6 +99,7 @@ const PictureScreen = () => {
     }
   };
 
+  // Share the image using email
   const sendMessageWithMail = async (imageUrl) => {
     const isAvailable = await MailComposer.isAvailableAsync();
 
@@ -120,6 +124,7 @@ const PictureScreen = () => {
     }
   };
 
+  // Share or delete the image
   const handleImageOptions = (id, imageUrl) => {
     Alert.alert(
       'Confirmation',
@@ -149,6 +154,7 @@ const PictureScreen = () => {
     );
   };
 
+  // Render the pressable image
   const renderItem = ({ item }) => (
     <View style={stylePictures.pictureItem}>
         <TouchableOpacity onPress={() => handleImageOptions(item.id, item.imageUrl)}>
