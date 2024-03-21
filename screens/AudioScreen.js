@@ -294,14 +294,14 @@ const AudioScreen = () => {
             <>
               <Button
                 style={stylesAudio.button}
-                color="red"
-                title="Record"
+                color="black"
+                title="Record Audio"
                 onPress={startRecordingAudio}
               />
               <Button
                 style={stylesAudio.button}
                 color="red"
-                title="Stop"
+                title="Stop Record"
                 onPress={() => {
                   stopRecordingAudio();
                   setShowRecordedAudio(true);

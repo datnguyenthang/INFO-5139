@@ -11,6 +11,7 @@ const RegistrationScreen = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // register using firebase auth service
   const registerWithFirebase = () => {
     if (!firstName.trim() || !lastName.trim() || email.length < 4 || password.length < 4) {
       Alert.alert('Please fill out all fields.');

@@ -10,7 +10,8 @@ const PictureScreen = () => {
   const [images, setImages] = useState([]);
   const currentUser = auth.currentUser;
 
-  //verify permission
+
+  // Request permission to access camera and albums
   const verifyPermissions = async () => {
     const cameraResult = await ImagePicker.requestCameraPermissionsAsync();
     const libraryResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -49,8 +50,9 @@ const PictureScreen = () => {
       Alert.alert('Error', 'Failed to delete image');
     }
   };
-	
-	// handle pickup image
+
+  // Select picture from album
+
   const handlePickImage = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -75,7 +77,7 @@ const PictureScreen = () => {
     }
   };
 
-	// handle take a picture
+  // Get pictures from camera
   const handleTakePicture = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -100,7 +102,7 @@ const PictureScreen = () => {
     }
   };
 
-	// handle send message with email
+  // Share the image using email
   const sendMessageWithMail = async (imageUrl) => {
     const isAvailable = await MailComposer.isAvailableAsync();
 
@@ -154,8 +156,9 @@ const PictureScreen = () => {
       { cancelable: false }
     );
   };
-	
-	// render image
+
+  // Render the pressable image
+
   const renderItem = ({ item }) => (
     <View style={stylePictures.pictureItem}>
         <TouchableOpacity onPress={() => handleImageOptions(item.id, item.imageUrl)}>
