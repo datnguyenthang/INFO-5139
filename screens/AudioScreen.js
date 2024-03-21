@@ -203,7 +203,7 @@ const AudioScreen = () => {
       MailComposer.composeAsync(options)
         .then((result) => {
           console.log(result.status);
-          Alert.alert('Email Sent', 'The audio has been sent successfully.');
+          Alert.alert('Email Sent', 'The audio has been sent!');
         })
         .catch((error) => {
           console.error('Error sending email', error);
