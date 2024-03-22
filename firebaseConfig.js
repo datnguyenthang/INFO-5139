@@ -3,6 +3,7 @@ import {getDatabase} from 'firebase/database';
 import {getAuth, sendEmailVerification} from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore';
 
+
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCkMcK_7r5h-wxUxFvbow1FpkqdoNMgbXg",

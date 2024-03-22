@@ -5,11 +5,10 @@ import { onSnapshot, collection, deleteDoc, addDoc, doc, where, query } from 'fi
 import * as ImagePicker from 'expo-image-picker';
 import * as MailComposer from 'expo-mail-composer';
 
-
 const PictureScreen = () => {
   const [images, setImages] = useState([]);
+  const [sortBy, setSortBy] = useState('date'); // Default sorting by date
   const currentUser = auth.currentUser;
-
 
   // Request permission to access camera and albums
   const verifyPermissions = async () => {
@@ -25,22 +24,44 @@ const PictureScreen = () => {
   };
 
   useEffect(() => {
-    if (!currentUser) {
-      return;
-    }
-
     const unsubscribe = onSnapshot(
       query(collection(firestore, 'images'), where('userId', '==', currentUser.uid)),
       (snapshot) => {
         const imagesData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setImages(imagesData);
+  
+        // Sort images based on sortBy state
+        if (sortBy === 'date') {
+          sortImagesByDate(imagesData);
+        } else {
+          sortImagesByName(imagesData);
+        }
       }
     );
-
+  
     return () => unsubscribe();
-  }, [currentUser]);
+  }, [currentUser, sortBy]);
+  
+  // Function to sort images by date
+  const sortImagesByDate = (imagesData) => {
+    const sorted = [...imagesData].sort((a, b) => new Date(b.date) - new Date(a.date));
+    setImages(sorted);
+  };
 
-   // handle delete image
+  // Function to sort images by name
+  const sortImagesByName = (imagesData) => {
+    const sorted = [...imagesData].sort((a, b) => {
+      // Check if both images have a name property
+      if (a.name && b.name) {
+        return a.name.localeCompare(b.name);
+      } else {
+        // If one of the images doesn't have a name property, consider it greater
+        return a.name ? -1 : 1;
+      }
+    });
+    setImages(sorted);
+  };
+
+  // Handle delete image
   const handleDeleteImage = async (id) => {
     try {
       await deleteDoc(doc(firestore, 'images', id));
@@ -52,7 +73,6 @@ const PictureScreen = () => {
   };
 
   // Select picture from album
-
   const handlePickImage = async () => {
     const hasPermission = await verifyPermissions();
 
@@ -68,7 +88,6 @@ const PictureScreen = () => {
             imageUrl: result.assets[0].uri,
             userId: currentUser.uid,
           });
-          //setImages((prevImages) => [...prevImages, { id: imageRef.id, imageUrl: result.assets[0].uri }]);
         }
       } catch (error) {
         console.error('Error picking image!', error);
@@ -93,7 +112,6 @@ const PictureScreen = () => {
             imageUrl: result.assets[0].uri,
             userId: currentUser.uid,
           });
-          //setImages((prevImages) => [...prevImages, { id: imageRef.id, imageUrl: result.assets[0].uri }]);
         }
       } catch (error) {
         console.error('Error taking picture', error);
@@ -127,7 +145,7 @@ const PictureScreen = () => {
     }
   };
 
-	// handle image option to take action on image
+  // Handle image option to take action on image
   const handleImageOptions = (id, imageUrl) => {
     Alert.alert(
       'Confirmation',
@@ -158,17 +176,24 @@ const PictureScreen = () => {
   };
 
   // Render the pressable image
-
   const renderItem = ({ item }) => (
     <View style={stylePictures.pictureItem}>
-        <TouchableOpacity onPress={() => handleImageOptions(item.id, item.imageUrl)}>
-          <Image source={{ uri: item.imageUrl }} style={stylePictures.imageThumbnail} />
-        </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleImageOptions(item.id, item.imageUrl)}>
+        <Image source={{ uri: item.imageUrl }} style={stylePictures.imageThumbnail} />
+      </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={stylePictures.container}>
+      <View style={stylePictures.sortOptions}>
+        <TouchableOpacity onPress={() => setSortBy('date')} style={[stylePictures.sortButton, sortBy === 'date' && stylePictures.activeSortButton]}>
+          <Text style={stylePictures.sortButtonText}>Sort by Date</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setSortBy('name')} style={[stylePictures.sortButton, sortBy === 'name' && stylePictures.activeSortButton]}>
+          <Text style={stylePictures.sortButtonText}>Sort by Name</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity onPress={handlePickImage} style={stylePictures.button}>
         <Text style={stylePictures.buttonText}>Pick Image</Text>
       </TouchableOpacity>
@@ -204,7 +229,7 @@ const stylePictures = StyleSheet.create({
     borderRadius: 5,
   },
   buttonText: {
-    color: '#fff', // Replace with your desired text color
+    color: '#fff', 
     fontSize: 16,
   },
   imageThumbnail: {
@@ -218,12 +243,34 @@ const stylePictures = StyleSheet.create({
     alignItems: 'center',
   },
   pictureItem: {
-          flexDirection: 'row',
-          alignItems: 'center',
-          padding: 10,
-          borderBottomWidth: 1,
-          borderBottomColor: '#ccc',
-        },
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  sortOptions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  sortButton: {
+    backgroundColor: '#ccc',
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  activeSortButton: {
+    backgroundColor: '#3498db',
+  },
+  sortButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
 });
 
 export default PictureScreen;
+
+
